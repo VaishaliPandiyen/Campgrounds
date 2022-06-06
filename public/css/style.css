@@ -1,0 +1,35 @@
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+}
+.navbar {
+    background-color: rgb(220, 169, 0);
+}
+.main-nav {
+    display: inline-block;
+    font-family: 'Pattaya', sans-serif;
+    font-size: 30px;
+    padding: 20px 10px 20px 20px; 
+}
+.yelp-name {
+    color: rgb(35, 63, 0);
+    text-decoration: none;
+}
+.point-nav {
+    display: inline-block;
+}
+.nav {
+    display: inline-block;
+    text-align: left;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+    padding: 0 30px;
+}
+.nav-elements {
+    color: rgb(35, 63, 0);
+    text-decoration: none;
+}
+
+.main {
+    padding: 20px;
+}

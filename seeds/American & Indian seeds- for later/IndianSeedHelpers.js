@@ -1,0 +1,41 @@
+module.exports.InDescriptors = [
+    'Woods',
+    'Old',
+    'Petrified',
+    'Roaring',
+    'Cascade',
+    'Tumbling',
+    'Quiet',
+    'Redsand',
+    'Snakes',
+    'Green',
+    'Cool',
+    'Elephant',
+    'Wild',
+    'Waterway',
+    'Sea',
+    'Sky',
+    'Offroad',
+    'Diamond'
+]
+
+module.exports.InPlaces = [
+    'Flatland',
+    'Village',
+    'Pond',
+    'Group Camp',
+    'Horse Camp',
+    'Ghost Town',
+    'Camp',
+    'Dispersed Camp',
+    'Offside Tour',
+    'River',
+    'Backwaters',
+    'Creekside',
+    'Beach',
+    'Shore',
+    'Cow Camp',
+    'Hunting Camp',
+    'Cliffs',
+]
+

@@ -1,0 +1,50 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit <%= campground.title %> campground</title>
+</head>
+
+<body> -->
+<% layout('layouts/boilerplate') %>
+
+    <h1>
+        <%= campground.title.toUpperCase() %>
+    </h1>
+    <form action="/campgrounds/<%= campground._id%>?_method=PUT " method="POST">
+        <div>
+            <label for="title">Name/Title of the campround:</label><br>
+            <input type="text" id="title" name="campground[title]" style="width:250px;"
+                placeholder="What is this place called?" value="<%=campground.title %>">
+        </div><br>
+        <div>
+            <label for="description">About the campground:</label><br>
+            <textarea id="description" name="campground[details]" rows="5" cols="30"
+                placeholder="Tell us more about the campground here!" style="text-align: left;"
+                value="<%=campground.description %>">
+                </textarea>
+        </div><br>
+        <div>
+            <label for="price">Price/Cost of participation:</label><br>
+            <input type="text" id="price" name="campground[price]" style="width:250px;"
+                pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" placeholder="$1,650"
+                value="<%=campground.price %>">
+        </div><br>
+        <div>
+            <label for="location">Location:</label><br>
+            <input type="text" id="location" name="campground[location]" style="width:250px;"
+                placeholder="Where is this place located?" value="<%=campground.location %>">
+            <!-- <select id="location" name="campground[location]" style="width:250px;">
+            </select> -->
+        </div><br>
+        <div>
+            <a href="/campgrounds/<%= campground._id %>">Cancel</a>
+        </div><br>
+        <button>Make Changes</button>
+    </form>
+    <!-- </body>
+
+    </html> -->
