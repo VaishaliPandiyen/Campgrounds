@@ -10,41 +10,91 @@
 
 <body> -->
 <% layout('layouts/boilerplate') %>
-
-    <h1>
-        <%= campground.title.toUpperCase() %>
-    </h1>
+<div class="nNe_wrapper">
+  <h1 class="nNe_h1"><%= campground.title.toUpperCase() %></h1>
+  <div class="nNe_formWrapper">
     <form action="/campgrounds/<%= campground._id%>?_method=PUT " method="POST">
-        <div>
-            <label for="title">Name/Title of the campround:</label><br>
-            <input type="text" id="title" name="campground[title]" style="width:250px;"
-                placeholder="What is this place called?" value="<%=campground.title %>">
-        </div><br>
-        <div>
-            <label for="description">About the campground:</label><br>
-            <textarea id="description" name="campground[details]" rows="5" cols="30"
-                placeholder="Tell us more about the campground here!" style="text-align: left;"
-                value="<%=campground.description %>">
-                </textarea>
-        </div><br>
-        <div>
-            <label for="price">Price/Cost of participation:</label><br>
-            <input type="text" id="price" name="campground[price]" style="width:250px;"
-                pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" placeholder="$1,650"
-                value="<%=campground.price %>">
-        </div><br>
-        <div>
-            <label for="location">Location:</label><br>
-            <input type="text" id="location" name="campground[location]" style="width:250px;"
-                placeholder="Where is this place located?" value="<%=campground.location %>">
-            <!-- <select id="location" name="campground[location]" style="width:250px;">
-            </select> -->
-        </div><br>
-        <div>
-            <a href="/campgrounds/<%= campground._id %>">Cancel</a>
-        </div><br>
-        <button>Make Changes</button>
+      <div>
+        <label class="nNe_title" for="title">Name of the campround</label>
+        <input
+          class="nNe_input"
+          type="text"
+          id="title"
+          name="campground[title]"
+          style="text-transform: capitalize"
+          placeholder="What is this place called?"
+          value="<%=campground.title %>"
+          required
+        />
+      </div>
+      <br />
+      <div>
+        <label class="nNe_title" for="description">About the campground</label>
+        <input type="text"
+          class="nNe_input nNe_desc"
+          id="description"
+          name="campground[details]"
+          placeholder="Tell us more about the campground here!"
+          style="text-align: left; font-family: inherit"
+          value="<%=campground.description %>"
+          required
+        >
+        </textarea>
+      </div>
+      <br />
+      <div>
+        <label class="nNe_title" for="price">Price of participation</label>
+        <input
+          class="nNe_input"
+          type="text"
+          id="price"
+          name="campground[price]"
+          data-type="currency"
+          placeholder="$1,650"
+          value="<%=campground.price %>"
+          required
+        />
+      </div>
+      <!-- pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" -->
+      <br />
+      <div>
+        <label class="nNe_title" for="location">Location</label>
+        <input
+          class="nNe_input"
+          type="text"
+          id="location"
+          name="campground[location]"
+          style="text-transform: capitalize"
+          placeholder="Where is this place located?"
+          value="<%=campground.location %>"
+          required
+        />
+        <!-- <select id="location" name="campground[location]" style="width:250px;">
+                </select> -->
+      </div>
+      <br />
+      <div>
+        <label class="nNe_title" for="location">Image Url</label>
+        <input
+          class="nNe_input"
+          type="text"
+          id="img_url"
+          name="campground[image]"
+          placeholder="Image link"
+          required
+        />
+      </div>
+      <div
+        style="width: inherit; display: flex; justify-content: space-between"
+      >
+        <button class="nNe_saveBtn">Make Changes</button>
+        <a class="nNe_cancel" href="/campgrounds/<%= campground._id %>"
+          >Cancel</a
+        >
+      </div>
     </form>
-    <!-- </body>
+  </div>
+</div>
+<!-- </body>
 
     </html> -->

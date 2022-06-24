@@ -1,11 +1,28 @@
 <% layout('layouts/boilerplate') %>
 
-    <h1>ALL CAMPGROUNDS</h1>
-    <a href="/campgrounds/new">Make a new campground</a>
-    <ul>
-        <% for (let campground of campgrounds) { %>
-            <li><a href="/campgrounds/<%= campground._id %>">
-                    <%= campground.title %>
-                </a></li>
-            <% } %>
-    </ul>
+<!-- <ul> -->
+<div class="index_wrapper" >
+  <h1>ALL CAMPGROUNDS</h1>
+  <!-- <a href="/campgrounds/new" class="makeNew_index">Make a new campground</a> -->
+  <div style="margin-top: 30px" class="eachCard_wrapper">
+    <% for (let campground of campgrounds) { %>
+    <!-- <li> -->
+    <div class="eachCard_index">
+      <img class="eachCard_index_image" src="<%= campground.image %>" />
+      <p style="font-weight: 500; margin: 10px 0 0"><%= campground.title %></p>
+      <!-- <p>$<%= campground.price %></p> -->
+      <p style="font-size: smaller; margin: 5px 0"><%= campground.location %></p>
+      <p
+        style="color: black; font-size: smaller; height: 40px; overflow: hidden"
+      >
+        <%= campground.description %>
+      </p>
+      <a class="eachCard_index_view" href="/campgrounds/<%= campground._id %>"
+        >View more</a
+      >
+    </div>
+    <!-- </li> -->
+    <% } %>
+  </div>
+</div>
+<!-- </ul> -->

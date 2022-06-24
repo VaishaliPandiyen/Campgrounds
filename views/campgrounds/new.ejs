@@ -10,35 +10,83 @@
 
 <body> -->
 <% layout('layouts/boilerplate') %>
-
-    <h1>NEW CAMPGROUND</h1>
+<div class="nNe_wrapper">
+  <h1 class="nNe_h1">New Campground</h1>
+  <div class="nNe_formWrapper">
     <form action="/campgrounds" method="POST">
-        <div>
-            <label for="title">Name/Title of the campround:</label><br>
-            <input type="text" id="title" name="campground[title]" style="width:250px;"
-                placeholder="What is this place called?">
-        </div><br>
-        <div>
-            <label for="description">About the campground:</label><br>
-            <textarea id="description" name="campground[details]" rows="5" cols="30"
-                placeholder="Tell us more about the campground here!" style="text-align: left;">
-                </textarea>
-        </div><br>
-        <div>
-            <label for="price">Price/Cost of participation:</label><br>
-            <input type="text" id="price" name="campground[price]" style="width:250px;"
-                pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" placeholder="$1,650">
-        </div><br>
-        <div>
-            <label for="location">Location:</label><br>
-            <input type="text" id="location" name="campground[location]" style="width:250px;"
-                placeholder="Where is this place located?">
-            <!-- <select id="location" name="campground[location]" style="width:250px;"> -->
-            <!-- </select> -->
-        </div><br>
-        <div><button>Add Campground</button></div><br>
-        <a href="/campgrounds">Back to all campgrounds</a>
+      <div>
+        <label class="nNe_title" for="title">Name of the campround</label>
+        <input
+          class="nNe_input"
+          type="text"
+          id="title"
+          name="campground[title]"
+          style="text-transform: capitalize"
+          placeholder="What is this place called?"
+          required
+        />
+      </div>
+      <br />
+      <div>
+        <label class="nNe_title" for="description">About the campground</label>
+        <input type="text"
+          class="nNe_input nNe_desc"
+          id="description"
+          name="campground[details]"
+          placeholder="Tell us more about the campground here!"
+          style="text-align: left"
+          required
+        >
+        </textarea>
+      </div>
+      <br />
+      <div>
+        <label class="nNe_title" for="price">Price of participation</label>
+        <input
+          class="nNe_input"
+          type="text"
+          id="price"
+          name="campground[price]"
+          value=""
+          data-type="currency"
+          placeholder="$1,650"
+          required
+        />
+      </div>
+      <br />
+      <div>
+        <label class="nNe_title" for="location">Image Url</label>
+        <input
+          class="nNe_input"
+          type="text"
+          id="img_url"
+          name="campground[image]"
+          placeholder="Image link"
+          required
+        />
+      </div>
+      <br />
+      <div>
+        <label class="nNe_title" for="location">Location</label>
+        <input
+          class="nNe_input"
+          type="text"
+          id="location"
+          name="campground[location]"
+          style="text-transform: capitalize"
+          placeholder="Where is this place located?"
+          required
+        />
+        <!-- <select id="location" name="campground[location]" style="width:250px;"> -->
+        <!-- </select> -->
+      </div>
+      <button class="nNe_saveBtn">Add Campground</button>
     </form>
-    <!-- </body>
+  </div>
+  <a class="details_btn go_back" href="/campgrounds">Back to all campgrounds</a>
+</div>
+<!-- </body>
 
 </html> -->
+
+<!-- pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$"  -->

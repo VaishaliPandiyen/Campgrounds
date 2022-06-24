@@ -1,35 +1,31 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        <%= campground.title %> campground
-    </title>
-</head>
-
-<body> -->
 <% layout('layouts/boilerplate') %>
 
-    <h1>
-        <%= campground.title.toUpperCase() %>
-    </h1>
-    <h2>
-        <%= campground.location %>
-    </h2>
-    <p>
-        <%= campground.description %>
-    </p>
-    <h3>
-        <%= campground.price %>
-    </h3>
-    <a href='/campgrounds/<%=campground._id%>/edit'>Edit Campground</a><br><br>
-    <form action='/campgrounds/<%=campground._id%>?_method=DELETE' method='POST'>
-        <button>Delete</button>
-    </form><br>
-    <a href='/campgrounds'>Go back to Index</a>
-    <!-- </body>
-
-    </html> -->
+<div class="details_box_wrapper">
+  <div class="details_box">
+    <div class="showPage_box">
+      <img class="showPage_img" src="<%= campground.image %>" />
+      <h1 class="showPage_h1"><%= campground.title.toUpperCase() %></h1>
+      <h2 class="showPage_h2"><%= campground.location %></h2>
+      <h3 class="showPage_h3">$<%= campground.price %></h3>
+      <p><%= campground.description %></p>
+      <div class="showPage_actions">
+        <a
+          class="details_btn"
+          href="/campgrounds/<%=campground._id%>/edit"
+          style="color: darkslategray; background: darkcyan; color: white;"
+          >Edit Campground</a
+        >
+        <form
+          action="/campgrounds/<%=campground._id%>?_method=DELETE"
+          method="POST"
+          style="display: inline-block"
+        >
+          <button class="details_btn" style="color: white; background: darkred">
+            Delete campground
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <a class="details_btn go_back" href="/campgrounds">Go back to Index</a>
+</div>
