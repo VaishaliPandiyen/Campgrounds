@@ -1,0 +1,17 @@
+---
+    MONGO DB SCHEMA DESIGN PARADOX OF CHOICE
+---
+
+GOOD PRACTICES:
+    1. Denormalising is referencing from one model document to another.
+        a. We can duplicate data in our documents if needed/efficient.
+        b. It's not wise to duplicate frequently updated fields' data. You can two-way reference instead.
+    2. Dulicating is allowed (not recommended mostly) when there's frequent access of only one of the populated information.
+    3. Embedding means nesting.
+        a. Embedding is good and favourable.
+        b. But you don't need to embed if the contained info can/will be used without the parent context.
+        c. It's a good practice to have upper limits to the info in the nested key:value array.
+    
+https://www.mongodb.com/blog/post/6-rules-of-thumb-for-mongodb-schema-design-part-3
+
+https://www.mongodb.com/blog/post/6-rules-of-thumb-for-mongodb-schema-design-part-2

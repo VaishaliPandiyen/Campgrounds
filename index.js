@@ -3,6 +3,7 @@ const app = express();
 
 const path = require("path");
 const Campground = require("./models/campground");
+const Amenities = require("./models/amenities");
 const methodOverride = require("method-override");
 const morgan = require("morgan");
 const ejsMate = require("ejs-mate");
@@ -45,7 +46,17 @@ app.get("/campgrounds/new", async (req, res) => {
 app.post("/campgrounds", async (req, res) => {
   const newCampground = new Campground(req.body.campground);
   await newCampground.save();
-  res.redirect(`/campgrounds/${newCampground._id}`);
+  res.render("campgrounds/newAmenities");
+});
+
+app.post("/amenities", async (req, res) => {
+  const newAmenities = new Amenities(req.body);
+  await newAmenities.save();
+  res.redirect("/campgrounds")
+  // res.redirect(`/campgrounds/${newCampground._id}`);
+});
+app.get("/campgrounds/amenities", async (req, res) => {
+  res.render("campgrounds/newAmenities");
 });
 
 app.get("/campgrounds/:id", async (req, res) => {
@@ -78,7 +89,7 @@ app.delete("/campgrounds/:id", async (req, res) => {
 app.get("/sampleCampground", async (req, res) => {
   const camp1 = new Campground({
     title: "Elliots Beach retro",
-    price: "Rs.1,000",
+    price: 100,
     description: "No fishing allowed",
     location: "Elliots Beach, Chennai",
   });
