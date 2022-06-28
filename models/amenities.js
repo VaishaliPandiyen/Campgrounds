@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 const AmenitiesSchema = new Schema({
   facility: {
     type: String,
-    required: true,
+    // required: true,
     enum: [
       "None",
       "Bonfire",
@@ -18,25 +18,25 @@ const AmenitiesSchema = new Schema({
   },
   conductor: {
     type: String,
-    required: true,
-    enum: ["Available", "N/A", "Not-Available", "Bring your own"],
+    // required: true,
+    enum: ["Available", "N/A"],
   },
   equipments: {
     type: String,
-    required: true,
-    enum: ["Available", "N/A", "Not-Available", "Bring your own"],
+    // required: true,
+    enum: ["Available", "N/A", "Bring your own"],
   },
+  things_to_carry: String,
   trail: {
     type: String,
-    required: true,
-    enum: ["Available", "N/A", "Not-Available"],
+    // required: true,
+    enum: ["Available", "N/A"],
   },
   guides: {
     type: String,
-    required: true,
-    enum: ["Available", "N/A", "Not-Available"],
+    // required: true,
+    enum: ["Available", "N/A"],
   },
-  things_to_carry: String,
   contact_person: {
     type: String,
     // required: true,
@@ -45,7 +45,7 @@ const AmenitiesSchema = new Schema({
     type: Number,
     // required: true,
   },
-  campground: [{ type: Schema.Types.ObjectId, ref: "Campground" }],
+  campground: { type: Schema.Types.ObjectId, ref: "Campground" },
 });
 
 module.exports = mongoose.model("Amenities", AmenitiesSchema);

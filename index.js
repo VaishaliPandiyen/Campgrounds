@@ -9,6 +9,7 @@ const morgan = require("morgan");
 const ejsMate = require("ejs-mate");
 
 const mongoose = require("mongoose");
+const amenities = require("./models/amenities");
 mongoose.connect("mongodb://localhost:27017/YelpCamp", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -18,7 +19,7 @@ mongoose.connect("mongodb://localhost:27017/YelpCamp", {
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "Connection Error:"));
 db.once("open", () => {
-  console.log("Database Connected!");
+  console.log("Database Connected successfully");
 });
 
 app.engine("ejs", ejsMate);
@@ -46,21 +47,16 @@ app.get("/campgrounds/new", async (req, res) => {
 app.post("/campgrounds", async (req, res) => {
   const newCampground = new Campground(req.body.campground);
   await newCampground.save();
-  res.render("campgrounds/newAmenities");
-});
-
-app.post("/amenities", async (req, res) => {
-  const newAmenities = new Amenities(req.body);
-  await newAmenities.save();
-  res.redirect("/campgrounds")
-  // res.redirect(`/campgrounds/${newCampground._id}`);
-});
-app.get("/campgrounds/amenities", async (req, res) => {
-  res.render("campgrounds/newAmenities");
+  res.redirect(`/campgrounds/${newCampground._id}`);
+  // res.redirect(`/campgrounds/${newCampground._id}/amenities/new`);
 });
 
 app.get("/campgrounds/:id", async (req, res) => {
-  const campground = await Campground.findById(req.params.id);
+  const campground = await Campground.findById(req.params.id).populate(
+    "amenities"
+  );
+  console.log(`Showing ${campground.title}`);
+  console.log(campground.amenities, campground.title);
   res.render("campgrounds/details", { campground });
 });
 
@@ -86,17 +82,44 @@ app.delete("/campgrounds/:id", async (req, res) => {
   res.redirect("/campgrounds");
 });
 
-app.get("/sampleCampground", async (req, res) => {
-  const camp1 = new Campground({
-    title: "Elliots Beach retro",
-    price: 100,
-    description: "No fishing allowed",
-    location: "Elliots Beach, Chennai",
+// AMENITIES
+
+app.post("/campgrounds/:id/amenities", async (req, res) => {
+  const { id } = req.params;
+  const campground = await Campground.findById(id);
+  // we just linked the campgrond to the amenities db
+  const amenities = new Amenities(req.body);
+  campground.amenities.push(amenities);
+  // We just pushed the new input amenities info into the campground db
+  amenities.campgound = campground;
+  // We have linked the campground info to the amenities db
+  await amenities.save();
+  await campground.save();
+  // We saved the input amenities info to the amenities db and updated the campground db with the same
+  console.log(amenities.facility);
+  res.redirect(`/campgrounds/${id}`);
+  // res.send(campground);
+});
+app.get("/campgrounds/:id/amenities/new", async (req, res) => {
+  const { id } = req.params;
+  const campground = await Campground.findById(id);
+  res.render("campgrounds/amenities/new", {
+    campground,
+    // ,categories
   });
-  await camp1.save();
-  res.send(camp1);
 });
 
+// app.get("/sampleCampground", async (req, res) => {
+//   const camp1 = new Campground({
+//     title: "Elliots Beach retro",
+//     price: 100,
+//     description: "No fishing allowed",
+//     location: "Elliots Beach, Chennai",
+//   });
+//   await camp1.save();
+//   res.send(camp1);
+// });
+
 app.listen(3030, () => {
-  console.log("On port 3030");
+  console.log("Local app running on port 3030");
 });

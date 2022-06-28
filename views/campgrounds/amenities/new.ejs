@@ -1,0 +1,90 @@
+<% layout('layouts/boilerplate') %>
+<div class="nNe_wrapper">
+  <h1 class="nNe_h1">Add Amenities for <%=campground.title%></h1>
+  <div class="nNe_formWrapper">
+    <form action="/campgrounds/<%=campground._id%>/amenities" method="POST">
+      <div>
+        <label class="nNe_title" for="facility">Facility</label>
+        <select class="nNe_input" id="facility" name="amenities[facility]">
+          <option value="None">None</option>
+          <option value="Bonfire">Bonfire</option>
+          <option value="Hiking">Hiking</option>
+          <option value="Trekking">Trekking</option>
+          <option value="Cannoeing">Cannoeing</option>
+          <option value="Yoga and Wellness">Yoga and Wellness</option>
+          <option value="Non-processed food">Non-processed food</option>
+          <option value="Safari">Safari</option>
+        </select>
+      </div>
+      <br />
+      <div>
+        <label class="nNe_title" for="conductor">Conductor</label>
+        <select class="nNe_input" id="conductor" name="amenities[conductor]">
+          <option value="N/A">N/A</option>
+          <option value="Available">Available</option>
+        </select>
+      </div>
+      <br />
+      <div>
+        <label class="nNe_title" for="equipments">Equipments</label>
+        <select class="nNe_input" id="equipments" name="amenities[equipments]">
+          <option value="N/A">N/A</option>
+          <option value="Available">Available</option>
+          <option value="Bring your own">Bring your own</option>
+        </select>
+      </div>
+      <br />
+      <div>
+        <label class="nNe_title" for="things_to_carry">Things to carry</label>
+        <input
+          type="text"
+          class="nNe_input"
+          id="things_to_carry"
+          name="amenities[things_to_carry]"
+          placeholder="Add things to carry (seperated by ,)"
+        />
+      </div>
+      <br />
+      <div>
+        <label class="nNe_title" for="trail">Trail</label>
+        <select class="nNe_input" id="trail" name="amenities[trail]">
+          <option value="N/A">N/A</option>
+          <option value="Available">Available</option>
+        </select>
+      </div>
+      <br />
+      <div>
+        <label class="nNe_title" for="guides">Guides</label>
+        <select class="nNe_input" id="guides" name="amenities[guides]">
+          <option value="N/A">N/A</option>
+          <option value="Available">Available</option>
+        </select>
+      </div>
+      <br />
+      <div>
+        <label class="nNe_title" for="contact_person">Contact person</label>
+        <input
+          type="text"
+          class="nNe_input"
+          id="contact_person"
+          name="amenities[contact_person]"
+          placeholder="Add contact person"
+        />
+      </div>
+      <br />
+      <div>
+        <label class="nNe_title" for="contact_number">Contact number</label>
+        <input
+          type="number"
+          class="nNe_input"
+          id="contact_number"
+          name="amenities[contact_number]"
+          placeholder="Add contact number"
+        />
+      </div>
+      <br />
+      <button class="nNe_saveBtn">Add amenity</button>
+    </form>
+  </div>
+  <a class="details_btn go_back" href="/campgrounds" style="width: auto;">Back to all campgrounds</a>
+</div>
