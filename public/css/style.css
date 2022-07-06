@@ -288,7 +288,46 @@ main {
   display: inline-block;
   text-transform: uppercase;
   font-weight: 700;
-  color: rgb(100, 100, 100)
+  font-size: larger;
+  color: rgb(100, 100, 100);
+}
+.sP_amenitiesWrapper {
+  margin-bottom: 15px;
+
+  display: flex;
+  flex-wrap: wrap;
+}
+.sP_eachAmenity {
+  background-color: darkslategray;
+  border-radius: 5px;
+  border: 2px solid slategray;
+  color: aliceblue;
+  width: 180px;
+  margin: 5px;
+  padding: 0 15px 15px;
+  text-align: center;
+}
+.sp_amenityHeading_wrapper {
+  border-radius: 2px;
+  height: 56px;
+  border: 1px solid lightslategray;
+  background-color: aliceblue;
+  margin-bottom: 15px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.sp_amenityHeading {
+  text-transform: uppercase;
+  font-weight: 500;
+  color: darkslategray;
+  padding: 3px 5px;
+  margin-bottom: 0;
+}
+.sP_key {
+  margin: 0;
+  font-size: small;
 }
 
 /*  */

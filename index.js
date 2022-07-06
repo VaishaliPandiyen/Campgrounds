@@ -81,22 +81,30 @@ app.delete("/campgrounds/:id", async (req, res) => {
   const deletedCampground = await Campground.findByIdAndDelete(id);
   res.redirect("/campgrounds");
 });
+// Refer to campgrounds mmodel to see middleware code to delete linked amenities
+
+
+/*  
+
 
 // AMENITIES
+
+
+*/
 
 app.post("/campgrounds/:id/amenities", async (req, res) => {
   const { id } = req.params;
   const campground = await Campground.findById(id);
   // we just linked the campgrond to the amenities db
-  const amenities = new Amenities(req.body);
+  const amenities = new Amenities(req.body.amenities);
   campground.amenities.push(amenities);
   // We just pushed the new input amenities info into the campground db
-  amenities.campgound = campground;
+  amenities.campground = campground;
   // We have linked the campground info to the amenities db
   await amenities.save();
   await campground.save();
   // We saved the input amenities info to the amenities db and updated the campground db with the same
-  console.log(amenities.facility);
+  // console.log(amenities.facility);
   res.redirect(`/campgrounds/${id}`);
   // res.send(campground);
 });
