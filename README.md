@@ -18,3 +18,5 @@ You can find the mongo cli here: "_C:\Program Files\MongoDB\Server\5.0\bin\mongo
 Running "_node seeds/indexSeeds.js_" **reseeds the database**
 
 "_models/explainer.js_" and "_models/schemeDesignGuide.txt_" are examples and explainations for basic one to few, many and bajillions mongo db relationships.
+
+"_models/campgrounds.js_" explains how to delete amenities linked with the campground
