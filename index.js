@@ -56,7 +56,7 @@ app.get("/campgrounds/:id", async (req, res) => {
     "amenities"
   );
   console.log(`Showing ${campground.title}`);
-  console.log(campground.amenities, campground.title);
+  // console.log(campground.amenities, campground.title);
   res.render("campgrounds/details", { campground });
 });
 
@@ -83,7 +83,6 @@ app.delete("/campgrounds/:id", async (req, res) => {
 });
 // Refer to campgrounds mmodel to see middleware code to delete linked amenities
 
-
 /*  
 
 
@@ -101,8 +100,13 @@ app.post("/campgrounds/:id/amenities", async (req, res) => {
   // We just pushed the new input amenities info into the campground db
   amenities.campground = campground;
   // We have linked the campground info to the amenities db
-  await amenities.save();
-  await campground.save();
+  if (amenities.facility != "None") {
+    await amenities.save();
+    await campground.save();
+    console.log(`${amenities.facility} added to ${campground.title}`);
+  } else {
+    console.log(`No amenity added to ${campground.title}`);
+  }
   // We saved the input amenities info to the amenities db and updated the campground db with the same
   // console.log(amenities.facility);
   res.redirect(`/campgrounds/${id}`);
@@ -115,6 +119,16 @@ app.get("/campgrounds/:id/amenities/new", async (req, res) => {
     campground,
     // ,categories
   });
+});
+app.delete("/campgrounds/:id/:a_id", async (req, res) => {
+  const { id, a_id } = req.params;
+  await Campground.findById(id).populate("amenities");
+  await Campground.amenities.findByIdAndDelete(a_id);
+  res.send("Success").catch(() => {
+    res.send("Deletion failed!!!!!!!!!");
+  });
+  // res.redirect("/campgrounds/:id");
+  // console.log(err);
 });
 
 // app.get("/sampleCampground", async (req, res) => {

@@ -329,6 +329,18 @@ main {
   margin: 0;
   font-size: small;
 }
+.sP_amenity_delete {
+  margin: 0 0 0 147px;
+  position: relative;
+  top: -5px;
+  display: inline;
+  background: none;
+  border: none;
+  padding: 0;
+}
+.sP_amenity_delete::after {
+  border: none;
+}
 
 /*  */
 /* New & Edit page CSS */

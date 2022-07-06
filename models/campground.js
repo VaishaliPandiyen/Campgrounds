@@ -26,8 +26,10 @@ CampgroundSchema.post("findOneAndDelete", async (camp) => {
       _id: { $in: camp.amenities },
     });
     // $in: means "is within the collection"
+    console.log(deleteAmenities);
+  } else {
+    console.log("Failed to delete campground")
   }
-  console.log(deleteAmenities);
 
   // console.log(camp);
 
