@@ -15,7 +15,7 @@
       <% for (let amenity of campground.amenities) {%>
       <div class="sP_eachAmenity">
         <form
-          action="/campgrounds/<%=campground._id%>/<%=amenity._id%>?_method=DELETE"
+          action="/campgrounds/<%=campground._id%>/amenities/<%=amenity._id%>?_method=DELETE"
           method="POST"
           style="display: inline-block"
         >

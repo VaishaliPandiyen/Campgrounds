@@ -21,14 +21,14 @@ const CampgroundSchema = new Schema({
 
 CampgroundSchema.post("findOneAndDelete", async (camp) => {
   // no need to call next() in mongoose middleware (different from express middleware)
-  if (camp.amenities.length) {
+  if (camp.amenities.length > 0) {
     const deleteAmenities = await Amenities.deleteMany({
       _id: { $in: camp.amenities },
     });
     // $in: means "is within the collection"
-    console.log(deleteAmenities);
+    console.log(`Deleted ${camp.title}`);
   } else {
-    console.log("Failed to delete campground")
+    console.log(`Deleted ${camp.title} (no extra amenities)`);
   }
 
   // console.log(camp);

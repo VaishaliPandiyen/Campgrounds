@@ -120,15 +120,11 @@ app.get("/campgrounds/:id/amenities/new", async (req, res) => {
     // ,categories
   });
 });
-app.delete("/campgrounds/:id/:a_id", async (req, res) => {
+app.delete("/campgrounds/:id/amenities/:a_id", async (req, res) => {
   const { id, a_id } = req.params;
-  await Campground.findById(id).populate("amenities");
-  await Campground.amenities.findByIdAndDelete(a_id);
-  res.send("Success").catch(() => {
-    res.send("Deletion failed!!!!!!!!!");
-  });
-  // res.redirect("/campgrounds/:id");
-  // console.log(err);
+  await Campground.findByIdAndUpdate(id, { $pull: { amenities: a_id } });
+  await Amenities.findByIdAndDelete(a_id);
+  res.redirect(`/campgrounds/${id}`);
 });
 
 // app.get("/sampleCampground", async (req, res) => {
