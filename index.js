@@ -2,19 +2,66 @@ const express = require("express");
 const app = express();
 
 const path = require("path");
-const Campground = require("./models/campground");
-const Amenities = require("./models/amenities");
 const methodOverride = require("method-override");
 const morgan = require("morgan");
 const ejsMate = require("ejs-mate");
+const camp = require("./routes/camp_routes");
+const amenity = require("./routes/amenity_routes");
 
 const mongoose = require("mongoose");
-const amenities = require("./models/amenities");
+
 mongoose.connect("mongodb://localhost:27017/YelpCamp", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
+  useFindAndModify: false,
+  // to make Mongoose deprecation warning go away
 });
+
+// In Chrome Dev tools, see cookies in application tab.
+
+const cookieParser = require("cookie-parser");
+app.use(cookieParser("Vaishali's_Cookie_#r53et6q23ftwqyshg"));
+/* 
+This param is the secret sign used to sign the cookies and verify when we get them back. In real workd, it'll be hidden/env variable.
+If we change the secret, the existing cookies become invalid.
+
+COOKIE EXAMPLES :
+
+*/
+app.get("/cookieExampleLogIN", async (req, res) => {
+  res.cookie("loggedIn", "true");
+  //   the above line saves logged in status
+  res.send("Logged-in!");
+});
+app.get("/cookieExampleLogOUT", async (req, res) => {
+  res.cookie("loggedIn", "false");
+  //   the above line saves logged in status
+  res.send("Logged-out!");
+});
+app.get("/cookieExampleLogStatus", async (req, res) => {
+  const { loggedIn } = req.cookies;
+  //   the above line accesses saved cookie data to show in this page
+  res.send(`Hey there! Your logged in status is ${loggedIn}`);
+});
+
+/* Signing is verifying something's authenticity (unchanges original source) and integrity (that something hasn't changed- like wax seal/don't buy if the seal is broken label)
+Similarly, we can have signed cookies using a secret code. It's to make sure that no one tampered with the original data sent.
+*/
+
+app.get("/signedCookieExampleCouponCode", async (req, res) => {
+  res.cookie("lastHr30%offCode", "haytreat0456#!5632tt", { signed: true });
+  res.send("Download your coupon here.");
+  console.log(req.signedCookies);
+  // this is how you access signed cookies
+  // tampering with it in application tab will show "lastHr30%offCode":false
+});
+
+/*
+
+END OF COOKIE EXAMPLES
+
+*/
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "Connection Error:"));
@@ -27,6 +74,7 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 app.use(express.static(path.join(__dirname, "public")));
+// This is to serve the static assets like CSS and JS files from the public directory
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(morgan("tiny"));
@@ -35,97 +83,8 @@ app.get("/", (req, res) => {
   res.render("campgrounds/landing");
 });
 
-app.get("/campgrounds", async (req, res) => {
-  const campgrounds = await Campground.find({});
-  res.render("campgrounds/index", { campgrounds });
-});
-
-app.get("/campgrounds/new", async (req, res) => {
-  res.render("campgrounds/new");
-});
-
-app.post("/campgrounds", async (req, res) => {
-  const newCampground = new Campground(req.body.campground);
-  await newCampground.save();
-  res.redirect(`/campgrounds/${newCampground._id}`);
-  // res.redirect(`/campgrounds/${newCampground._id}/amenities/new`);
-});
-
-app.get("/campgrounds/:id", async (req, res) => {
-  const campground = await Campground.findById(req.params.id).populate(
-    "amenities"
-  );
-  console.log(`Showing ${campground.title}`);
-  // console.log(campground.amenities, campground.title);
-  res.render("campgrounds/details", { campground });
-});
-
-app.get("/campgrounds/:id/edit", async (req, res) => {
-  const { id } = req.params;
-  const campground = await Campground.findById(id);
-  res.render("campgrounds/edit", { campground });
-});
-
-app.put("/campgrounds/:id", async (req, res) => {
-  const { id } = req.params;
-  const campground = await Campground.findByIdAndUpdate(
-    id,
-    req.body.campground,
-    { runValidators: true, new: true }
-  );
-  res.redirect(`/campgrounds/${campground._id}`);
-});
-
-app.delete("/campgrounds/:id", async (req, res) => {
-  const { id } = req.params;
-  const deletedCampground = await Campground.findByIdAndDelete(id);
-  res.redirect("/campgrounds");
-});
-// Refer to campgrounds mmodel to see middleware code to delete linked amenities
-
-/*  
-
-
-// AMENITIES
-
-
-*/
-
-app.post("/campgrounds/:id/amenities", async (req, res) => {
-  const { id } = req.params;
-  const campground = await Campground.findById(id);
-  // we just linked the campgrond to the amenities db
-  const amenities = new Amenities(req.body.amenities);
-  campground.amenities.push(amenities);
-  // We just pushed the new input amenities info into the campground db
-  amenities.campground = campground;
-  // We have linked the campground info to the amenities db
-  if (amenities.facility != "None") {
-    await amenities.save();
-    await campground.save();
-    console.log(`${amenities.facility} added to ${campground.title}`);
-  } else {
-    console.log(`No amenity added to ${campground.title}`);
-  }
-  // We saved the input amenities info to the amenities db and updated the campground db with the same
-  // console.log(amenities.facility);
-  res.redirect(`/campgrounds/${id}`);
-  // res.send(campground);
-});
-app.get("/campgrounds/:id/amenities/new", async (req, res) => {
-  const { id } = req.params;
-  const campground = await Campground.findById(id);
-  res.render("campgrounds/amenities/new", {
-    campground,
-    // ,categories
-  });
-});
-app.delete("/campgrounds/:id/amenities/:a_id", async (req, res) => {
-  const { id, a_id } = req.params;
-  await Campground.findByIdAndUpdate(id, { $pull: { amenities: a_id } });
-  await Amenities.findByIdAndDelete(a_id);
-  res.redirect(`/campgrounds/${id}`);
-});
+app.use("/campgrounds", camp);
+app.use("/campgrounds/:id/amenitie", amenity);
 
 // app.get("/sampleCampground", async (req, res) => {
 //   const camp1 = new Campground({

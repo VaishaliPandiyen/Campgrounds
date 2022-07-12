@@ -6,7 +6,7 @@
     <img class="showPage_img" src="<%= campground.image %>" />
     <h1 class="showPage_h1"><%= campground.title.toUpperCase() %></h1>
     <h2 class="showPage_h2"><%= campground.location %></h2>
-    <h3 class="showPage_h3">$<%= campground.price %></h3>
+    <h3 class="showPage_h3">$<%= campground.price %>/night</h3>
     <p><%= campground.description %></p>
     <% if (campground.amenities.length > 0) { %>
     <p class="sP_Amenities">Amenities</p>

@@ -209,8 +209,9 @@ main {
   font-weight: 500;
   background: white;
 }
-.details_btn:hover {
-  transform: scale(1.1);
+.details_btn:hover,
+.nNe_saveBtn:hover {
+  opacity: 0.8;
 }
 .details_box_wrapper,
 .nNe_wrapper,
@@ -236,13 +237,14 @@ main {
 .add_amenities,
 .go_back {
   margin: 10px 3px;
-  width: 150px;
+  min-width: 150px;
   text-align: center;
 }
 
 /*  */
 /* Details Page CSS*/
 /*  */
+
 .details_box {
   min-width: 300px;
   max-width: 1000px;
@@ -272,6 +274,7 @@ main {
 }
 .showPage_img {
   height: 400px;
+  min-width: 600px;
   max-width: 800px;
   object-fit: cover;
 }
@@ -364,6 +367,16 @@ main {
   font-weight: 500;
   margin-bottom: 10px;
 }
+.nNe_price {
+  display: flex;
+  align-items: center;
+}
+.nNe_currency {
+  background: rgb(189, 189, 189);
+  padding: 5px;
+  border-radius: 3px;
+  margin-right: 3px;
+}
 .nNe_input {
   width: 100%;
   padding: 5px;
@@ -398,4 +411,18 @@ main {
 }
 .nNe_cancel:hover {
   color: darkred;
+  border-color: darkred;
+}
+
+/*  */
+/* Error Page CSS*/
+/*  */
+
+.error_wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background: whitesmoke;
 }
