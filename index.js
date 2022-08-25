@@ -7,6 +7,7 @@ const morgan = require("morgan");
 const ejsMate = require("ejs-mate");
 const camp = require("./routes/camp_routes");
 const amenity = require("./routes/amenity_routes");
+const explainers = require("./routes/explainers");
 
 const mongoose = require("mongoose");
 
@@ -17,51 +18,6 @@ mongoose.connect("mongodb://localhost:27017/YelpCamp", {
   useFindAndModify: false,
   // to make Mongoose deprecation warning go away
 });
-
-// In Chrome Dev tools, see cookies in application tab.
-
-const cookieParser = require("cookie-parser");
-app.use(cookieParser("Vaishali's_Cookie_#r53et6q23ftwqyshg"));
-/* 
-This param is the secret sign used to sign the cookies and verify when we get them back. In real workd, it'll be hidden/env variable.
-If we change the secret, the existing cookies become invalid.
-
-COOKIE EXAMPLES :
-
-*/
-app.get("/cookieExampleLogIN", async (req, res) => {
-  res.cookie("loggedIn", "true");
-  //   the above line saves logged in status
-  res.send("Logged-in!");
-});
-app.get("/cookieExampleLogOUT", async (req, res) => {
-  res.cookie("loggedIn", "false");
-  //   the above line saves logged in status
-  res.send("Logged-out!");
-});
-app.get("/cookieExampleLogStatus", async (req, res) => {
-  const { loggedIn } = req.cookies;
-  //   the above line accesses saved cookie data to show in this page
-  res.send(`Hey there! Your logged in status is ${loggedIn}`);
-});
-
-/* Signing is verifying something's authenticity (unchanges original source) and integrity (that something hasn't changed- like wax seal/don't buy if the seal is broken label)
-Similarly, we can have signed cookies using a secret code. It's to make sure that no one tampered with the original data sent.
-*/
-
-app.get("/signedCookieExampleCouponCode", async (req, res) => {
-  res.cookie("lastHr30%offCode", "haytreat0456#!5632tt", { signed: true });
-  res.send("Download your coupon here.");
-  console.log(req.signedCookies);
-  // this is how you access signed cookies
-  // tampering with it in application tab will show "lastHr30%offCode":false
-});
-
-/*
-
-END OF COOKIE EXAMPLES
-
-*/
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "Connection Error:"));
@@ -84,7 +40,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/campgrounds", camp);
-app.use("/campgrounds/:id/amenitie", amenity);
+app.use("/campgrounds/:id/amenities", amenity);
+app.use("", explainers);
 
 // app.get("/sampleCampground", async (req, res) => {
 //   const camp1 = new Campground({
