@@ -19,4 +19,4 @@ You can find the mongo cli here: "_C:\Program Files\MongoDB\Server\5.0\bin\mongo
 
 * "_models/campgrounds.js_" explains how to delete amenities linked with the campground
 
-* Main "index.js" explains basic cookie parser (with sign)
+* Routes "explainer.js" explains basic cookie parser (with sign), express session and flash
