@@ -5,12 +5,38 @@ const path = require("path");
 const methodOverride = require("method-override");
 const morgan = require("morgan");
 const ejsMate = require("ejs-mate");
+
 const camp = require("./routes/camp_routes");
 const amenity = require("./routes/amenity_routes");
 const explainers = require("./routes/explainers");
 
-const mongoose = require("mongoose");
+const session = require("express-session");
+app.use(
+  session({
+    secret: "campUser$%^",
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      expires: Date.now() + 1000 * 60 * 60 * 1,
+      // millisecs * secs * mins * hrs
+      maxAge: 1000 * 60 * 60 * 1,
+      // There is no default expiration
+      httpOnly: true,
+      // This is basic security
+    },
+  })
+);
+// For 1. using flash; 2. session access for auth.
 
+const flash = require("connect-flash");
+app.use(flash());
+
+app.use((req, res, next) => {
+  res.locals.success = req.flash("success");
+  next();
+});
+
+const mongoose = require("mongoose");
 mongoose.connect("mongodb://localhost:27017/YelpCamp", {
   useNewUrlParser: true,
   useUnifiedTopology: true,

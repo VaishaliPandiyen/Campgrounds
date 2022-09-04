@@ -17,13 +17,15 @@
       integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I"
       crossorigin="anonymous"
     />
-    <!-- <link rel="stylesheet" href="/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
   </head>
 
   <body>
     <div class="bodywrapper">
       <%- include('../partials/navbar') %>
-      <main class="main"><%- body %></main>
+      <main class="main">
+        <%- include('../partials/successCamp') %> <%- body %>
+      </main>
       <!-- <%- include('../partials/footer') %> -->
     </div>
     <script src="/js/bootstrap.min.js"></script>

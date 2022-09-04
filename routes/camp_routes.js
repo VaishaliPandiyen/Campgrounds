@@ -14,6 +14,7 @@ router.get("/new", async (req, res) => {
 router.post("/", async (req, res) => {
   const newCampground = new Campground(req.body.campground);
   await newCampground.save();
+  req.flash("success", "Successfully made a new campground!");
   res.redirect(`/campgrounds/${newCampground._id}`);
   // res.redirect(`/campgrounds/${newCampground._id}/amenities/new`);
 });
@@ -46,6 +47,7 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
   const deletedCampground = await Campground.findByIdAndDelete(id);
+  req.flash("success", `Successfully deleted campground`);
   res.redirect("/campgrounds");
 });
 // Refer to campgrounds mmodel to see middleware code to delete linked amenities
